@@ -1,2 +1,14 @@
-# KanbanFlow
-KanbanFlow is a web app that integrates the principles of the Japanese manufacturing system into modern project management. With Kanban board interface, you can easily organize tasks and collaborate with your team. Boost productivity by tracking progress, setting priorities, and managing deadlines effortlessly.
+# KanbanFlow: Project Management App using Kanban
+
+KanbanFlow is a app that integrates the principles of the Japanese manufacturing system into modern project management. Utilizing the visually appealing Kanban board interface, organizing tasks and collaborating with your team becomes effortless. Stay in control of your projects by tracking progress and setting priorities.
+
+Technologies:
+- .Net 7 Web APi
+- Entity Framework Core (Code First Approach)
+- Linq
+- AutoMapper
+- JWT Auth
+- Rest
+- MySql
+- Angular
+- TypeScript
