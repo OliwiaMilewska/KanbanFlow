@@ -13,6 +13,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<KanbanDbAuthContext>();
+builder.Services.AddDbContext<KanbanDbContext>();
 
 builder.Services.AddScoped<ITokenRepository, TokenRepository>();
 
