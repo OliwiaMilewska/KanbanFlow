@@ -7,11 +7,11 @@ using Task = KanbanFlow.API.Models.Domain.Task;
 
 namespace KanbanFlow.API.Data
 {
-    public class KanbanDbAuthContext: IdentityDbContext
+    public class KanbanDbContext: IdentityDbContext
     {
         private readonly IConfiguration _configuration;
 
-        public KanbanDbAuthContext(DbContextOptions<KanbanDbAuthContext> dbContextOptions, IConfiguration configuration) : base(dbContextOptions)
+        public KanbanDbContext(DbContextOptions<KanbanDbContext> dbContextOptions, IConfiguration configuration) : base(dbContextOptions)
         {
             _configuration = configuration;
         }

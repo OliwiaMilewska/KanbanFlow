@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace KanbanFlow.API.Migrations
 {
-    [DbContext(typeof(KanbanDbAuthContext))]
+    [DbContext(typeof(KanbanDbContext))]
     [Migration("20230731094316_Initialize Db necessary for Auth")]
     partial class InitializeDbnecessaryforAuth
     {

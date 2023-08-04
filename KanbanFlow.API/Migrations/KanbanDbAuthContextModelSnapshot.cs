@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace KanbanFlow.API.Migrations
 {
-    [DbContext(typeof(KanbanDbAuthContext))]
+    [DbContext(typeof(KanbanDbContext))]
     partial class KanbanDbAuthContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

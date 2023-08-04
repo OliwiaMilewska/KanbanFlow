@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace KanbanFlow.API.Migrations
 {
-    [DbContext(typeof(KanbanDbAuthContext))]
+    [DbContext(typeof(KanbanDbContext))]
     [Migration("20230802110305_Init tables Tasks,Comments,Projects,Teams")]
     partial class InittablesTasksCommentsProjectsTeams
     {

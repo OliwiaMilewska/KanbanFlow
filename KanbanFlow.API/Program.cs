@@ -1,4 +1,5 @@
 using KanbanFlow.API.Data;
+using KanbanFlow.API.Helpers.Mappings;
 using KanbanFlow.API.Repositories;
 using KanbanFlow.API.Repositories.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -13,15 +14,15 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<KanbanDbAuthContext>();
 builder.Services.AddDbContext<KanbanDbContext>();
 
 builder.Services.AddScoped<ITokenRepository, TokenRepository>();
+builder.Services.AddScoped<ITaskRepository, TaskRepository>();
 
 builder.Services.AddIdentityCore<IdentityUser>()
                 .AddRoles<IdentityRole>()
                 .AddTokenProvider<DataProtectorTokenProvider<IdentityUser>>("KanbanFlow")
-                .AddEntityFrameworkStores<KanbanDbAuthContext>()
+                .AddEntityFrameworkStores<KanbanDbContext>()
                 .AddDefaultTokenProviders();
 
 builder.Services.Configure<IdentityOptions>(options =>
@@ -50,9 +51,10 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
     };
 });
 
+builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
