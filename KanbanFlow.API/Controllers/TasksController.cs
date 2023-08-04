@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using KanbanFlow.API.Models.DTOs;
+using KanbanFlow.API.Models.DTOs.Task;
 using KanbanFlow.API.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,6 +16,15 @@ namespace KanbanFlow.API.Controllers
         {
             _taskRepository = taskRepository;
             _mapper = mapper;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateTask([FromBody] TaskAddDto newTaskDto)
+        {
+            var taskdomain = _mapper.Map<Models.Domain.Task>(newTaskDto);
+            taskdomain = await _taskRepository.CreateTask(taskdomain);
+            var taskDto = _mapper.Map<TaskDto>(taskdomain);
+            return Ok(taskDto);
         }
 
         [HttpGet]

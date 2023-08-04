@@ -2,24 +2,32 @@
 using KanbanFlow.API.Helpers.Enums;
 using KanbanFlow.API.Models.Domain;
 using KanbanFlow.API.Models.DTOs;
+using KanbanFlow.API.Models.DTOs.Task;
 using Microsoft.AspNetCore.Identity;
 using Task = KanbanFlow.API.Models.Domain.Task;
 
 namespace KanbanFlow.API.Helpers.Mappings
 {
-    public class AutoMapperProfiles:Profile
+    public class AutoMapperProfiles : Profile
     {
         public AutoMapperProfiles()
         {
             CreateMap<UserDto, IdentityUser>().ReverseMap();
+
             CreateMap<Task, TaskDto>()
                 .ForMember(dest => dest.Priority, opt => opt.MapFrom(src => src.Priority.ToString()))
                 .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status.ToString()));
             CreateMap<TaskDto, Task>()
                 .ForMember(dest => dest.Priority, opt => opt.MapFrom(src => Enum.Parse<Priority>(src.Priority)))
-                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => Enum.Parse<TaskStatus>(src.Status)));
+                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => Enum.Parse<Status>(src.Status)));
+            CreateMap<Task, TaskAddDto>()
+                .ForMember(dest => dest.Priority, opt => opt.MapFrom(src => src.Priority.ToString()))
+                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status.ToString()));
+            CreateMap<TaskAddDto, Task>()
+                .ForMember(dest => dest.Priority, opt => opt.MapFrom(src => Enum.Parse<Priority>(src.Priority)))
+                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => Enum.Parse<Status>(src.Status)));
 
-            CreateMap<CommentDto,Comment>().ReverseMap();
+            CreateMap<CommentDto, Comment>().ReverseMap();
         }
     }
 }

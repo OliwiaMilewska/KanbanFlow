@@ -13,9 +13,11 @@ namespace KanbanFlow.API.Repositories
             _dbContext = dbContext;
         }
 
-        public Task<Models.Domain.Task> CreateTask(Models.Domain.Task newTask)
+        public async Task<Models.Domain.Task> CreateTask(Models.Domain.Task newTask)
         {
-            throw new NotImplementedException();
+            await _dbContext.Tasks.AddAsync(newTask);
+            await _dbContext.SaveChangesAsync();
+            return newTask;
         }
 
         public async Task<List<Models.Domain.Task>> GetAllTasks()
@@ -30,7 +32,11 @@ namespace KanbanFlow.API.Repositories
 
         public async Task<Models.Domain.Task?> GetTask(Guid id)
         {
-            return await _dbContext.Tasks.Include(x => x.Comments).FirstOrDefaultAsync(task => task.Id == id);
+            return await _dbContext.Tasks
+                .Include(t => t.Owner)
+                .Include(t => t.Reporter)
+                .Include(x => x.Comments)
+                .FirstOrDefaultAsync(task => task.Id == id);
         }
 
         public Task<Models.Domain.Task> UpdateTask(Models.Domain.Task newTask)
