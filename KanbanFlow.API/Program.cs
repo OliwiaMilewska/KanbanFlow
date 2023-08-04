@@ -1,5 +1,6 @@
 using KanbanFlow.API.Data;
 using KanbanFlow.API.Repositories;
+using KanbanFlow.API.Repositories.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;

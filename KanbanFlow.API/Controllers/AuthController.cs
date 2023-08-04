@@ -1,5 +1,5 @@
 ﻿using KanbanFlow.API.Models.DTOs;
-using KanbanFlow.API.Repositories;
+using KanbanFlow.API.Repositories.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
