@@ -26,6 +26,12 @@ namespace KanbanFlow.API.Helpers.Mappings
             CreateMap<TaskAddDto, Task>()
                 .ForMember(dest => dest.Priority, opt => opt.MapFrom(src => Enum.Parse<Priority>(src.Priority)))
                 .ForMember(dest => dest.Status, opt => opt.MapFrom(src => Enum.Parse<Status>(src.Status)));
+            CreateMap<Task, TaskEditDto>()
+                .ForMember(dest => dest.Priority, opt => opt.MapFrom(src => src.Priority.ToString()))
+                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status.ToString()));
+            CreateMap<TaskEditDto, Task>()
+                .ForMember(dest => dest.Priority, opt => opt.MapFrom(src => Enum.Parse<Priority>(src.Priority)))
+                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => Enum.Parse<Status>(src.Status)));
 
             CreateMap<CommentDto, Comment>().ReverseMap();
         }

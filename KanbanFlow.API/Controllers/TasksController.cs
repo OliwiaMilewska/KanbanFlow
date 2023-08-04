@@ -31,6 +31,9 @@ namespace KanbanFlow.API.Controllers
         public async Task<IActionResult> GetTasks()
         {
             var tasksDomain = await _taskRepository.GetAllTasks();
+            if (!tasksDomain.Any())
+                return NotFound();
+
             var tasksDto = _mapper.Map<List<TaskDto>>(tasksDomain);
             return Ok(tasksDto);
         }
@@ -39,6 +42,32 @@ namespace KanbanFlow.API.Controllers
         public async Task<IActionResult> GetTask(Guid id)
         {
             var taskDomain = await _taskRepository.GetTask(id);
+            if (taskDomain == null)
+                return NotFound();
+
+            var taskDto = _mapper.Map<TaskDto>(taskDomain);
+            return Ok(taskDto);
+        }
+
+        [HttpPut("{id:guid}")]
+        public async Task<IActionResult> UpdateTask(Guid id, [FromBody] TaskEditDto taskEditDto)
+        {
+            var taskDomain = _mapper.Map<Models.Domain.Task>(taskEditDto);
+            taskDomain = await _taskRepository.UpdateTask(id, taskDomain);
+            if (taskDomain == null)
+                return NotFound();
+
+            var taskDto = _mapper.Map<TaskDto>(taskDomain);
+            return Ok(taskDto);
+        }
+
+        [HttpDelete("{id:Guid}")]
+        public async Task<IActionResult> DeleteTask(Guid id)
+        {
+            var taskDomain = await _taskRepository.DeleteTask(id);
+            if (taskDomain == null)
+                return NotFound();
+
             var taskDto = _mapper.Map<TaskDto>(taskDomain);
             return Ok(taskDto);
         }

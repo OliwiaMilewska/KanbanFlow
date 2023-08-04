@@ -22,31 +22,62 @@ namespace KanbanFlow.API.Repositories
 
         public async Task<List<Models.Domain.Task>> GetAllTasks()
         {
-            return await _dbContext.Tasks
+            var tasks = await _dbContext.Tasks
                 .Include(t => t.Owner)
                 .Include(t => t.Reporter)
                 .Include(t => t.Comments)
                 .ThenInclude(c => c.Commentator)
                 .ToListAsync();
+
+            if (!tasks.Any())
+                return null;
+
+            return tasks;
         }
 
         public async Task<Models.Domain.Task?> GetTask(Guid id)
         {
-            return await _dbContext.Tasks
+            var task = await _dbContext.Tasks
                 .Include(t => t.Owner)
                 .Include(t => t.Reporter)
                 .Include(x => x.Comments)
                 .FirstOrDefaultAsync(task => task.Id == id);
+
+            if (task == null)
+                return null;
+
+            return task;
         }
 
-        public Task<Models.Domain.Task> UpdateTask(Models.Domain.Task newTask)
+        public async Task<Models.Domain.Task> UpdateTask(Guid id, Models.Domain.Task updatedTask)
         {
-            throw new NotImplementedException();
+            var existingTask = await _dbContext.Tasks
+                .Include(x => x.Comments)
+                .FirstOrDefaultAsync(x => x.Id == id);
+            if (existingTask == null)
+                return null;
+
+            existingTask.Title = updatedTask.Title;
+            existingTask.Owner = updatedTask.Owner;
+            existingTask.DateOfReport = updatedTask.DateOfReport;
+            existingTask.Priority = updatedTask.Priority;
+            existingTask.Status = updatedTask.Status;
+            existingTask.Description = updatedTask.Description;
+
+            await _dbContext.SaveChangesAsync();
+            return existingTask;
         }
 
-        public Task<Models.Domain.Task> DeleteTask(Models.Domain.Task newTask)
+        public async Task<Models.Domain.Task> DeleteTask(Guid id)
         {
-            throw new NotImplementedException();
+            var task = await _dbContext.Tasks
+                .FirstOrDefaultAsync(x => x.Id == id);
+            if (task == null)
+                return null;
+
+            _dbContext.Tasks.Remove(task);
+            await _dbContext.SaveChangesAsync();
+            return task;
         }
     }
 }
