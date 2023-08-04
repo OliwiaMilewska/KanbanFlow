@@ -12,3 +12,7 @@ Technologies:
 - MySql
 - Angular
 - TypeScript
+
+Plans for the Future:
+- Use Docker
+- Use Azure
