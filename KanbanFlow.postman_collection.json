@@ -1,0 +1,208 @@
+{
+	"info": {
+		"_postman_id": "5e8cb0af-57cb-43d0-875e-8d8be1ff5a0a",
+		"name": "KanbanFlow",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "21772995"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"\r",
+									"    var responseBody = pm.response.json();\r",
+									"    var jwtToken = responseBody.jwtToken;\r",
+									"    console.log(\"Extracted jwtToken:\", jwtToken);\r",
+									"    pm.collectionVariables.set(\"token\", jwtToken);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"admin@gmail.com\",\r\n  \"password\": \"admin123#\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "https://localhost:7042/api/Auth/Login"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tasks",
+			"item": [
+				{
+					"name": "Get Tasks",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "https://localhost:7042/api/Tasks"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Task",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "https://localhost:7042/api/Tasks/0f446d5b-d6b6-4830-bdd4-dd00ee577f4c"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Task",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"Testing\",\r\n  \"description\": \"Just for tests\",\r\n  \"ownerId\": null,\r\n  \"reporterId\": \"4f2e8b12-fb8b-4f0d-891a-34afad4095f8\",\r\n  \"dateOfReport\": \"2023-11-18T20:41:03.113Z\",\r\n  \"priority\": \"Urgent\",\r\n  \"status\": \"ToDo\",\r\n  \"projectId\": \"77876CB3-C59B-4259-84D6-EF97D0EF54C8\",\r\n  \"teamId\": \"F4CF9C55-63B8-4A7F-9072-A9C3930B05EF\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "https://localhost:7042/api/Tasks"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Task",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "https://localhost:7042/api/Tasks/f9808458-bfa1-476e-a69c-08dbe876f49b"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Comments",
+			"item": [
+				{
+					"name": "Add Comment to Task",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"commentatorId\": \"c1e5da6e-e4e4-4a94-a79e-e65ef7bd6746\",\r\n  \"date\": \"2023-11-18T21:03:41.755Z\",\r\n  \"description\": \"Already done\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "https://localhost:7042/api/Comments/0f446d5b-d6b6-4830-bdd4-dd00ee577f4c"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Comment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"description\": \"Already done. We can close this task :)\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "https://localhost:7042/api/Comments/5B4C775B-0EB6-4A65-34FC-08DBE87A02BA"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Comment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{token}}"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"description\": \"Already done. We can close this task :)\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "https://localhost:7042/api/Comments/5B4C775B-0EB6-4A65-34FC-08DBE87A02BA"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": ""
+		}
+	]
+}
