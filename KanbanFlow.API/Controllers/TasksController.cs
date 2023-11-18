@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using KanbanFlow.API.Models.DTOs.Task;
 using KanbanFlow.API.Repositories.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KanbanFlow.API.Controllers
@@ -19,6 +20,7 @@ namespace KanbanFlow.API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Manager, Developer")]
         public async Task<IActionResult> CreateTask([FromBody] TaskAddDto newTaskDto)
         {
             var taskdomain = _mapper.Map<Models.Domain.Task>(newTaskDto);
@@ -28,6 +30,7 @@ namespace KanbanFlow.API.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles ="Manager, Developer")]
         public async Task<IActionResult> GetTasks()
         {
             var tasksDomain = await _taskRepository.GetAllTasks();
@@ -39,6 +42,7 @@ namespace KanbanFlow.API.Controllers
         }
 
         [HttpGet("{id:Guid}")]
+        [Authorize(Roles = "Manager, Developer")]
         public async Task<IActionResult> GetTask(Guid id)
         {
             var taskDomain = await _taskRepository.GetTask(id);
@@ -50,6 +54,7 @@ namespace KanbanFlow.API.Controllers
         }
 
         [HttpPut("{id:guid}")]
+        [Authorize(Roles = "Manager, Developer")]
         public async Task<IActionResult> UpdateTask(Guid id, [FromBody] TaskEditDto taskEditDto)
         {
             var taskDomain = _mapper.Map<Models.Domain.Task>(taskEditDto);
@@ -62,6 +67,7 @@ namespace KanbanFlow.API.Controllers
         }
 
         [HttpDelete("{id:Guid}")]
+        [Authorize(Roles = "Manager, Developer")]
         public async Task<IActionResult> DeleteTask(Guid id)
         {
             var taskDomain = await _taskRepository.DeleteTask(id);
