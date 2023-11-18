@@ -40,7 +40,8 @@ namespace KanbanFlow.API.Repositories
             var task = await _dbContext.Tasks
                 .Include(t => t.Owner)
                 .Include(t => t.Reporter)
-                .Include(x => x.Comments)
+                .Include(t => t.Comments)
+                .ThenInclude(c => c.Commentator)
                 .FirstOrDefaultAsync(task => task.Id == id);
 
             if (task == null)

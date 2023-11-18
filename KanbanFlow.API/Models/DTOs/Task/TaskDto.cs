@@ -1,4 +1,6 @@
-﻿namespace KanbanFlow.API.Models.DTOs.Task
+﻿using KanbanFlow.API.Models.DTOs.Comment;
+
+namespace KanbanFlow.API.Models.DTOs.Task
 {
     public class TaskDto
     {

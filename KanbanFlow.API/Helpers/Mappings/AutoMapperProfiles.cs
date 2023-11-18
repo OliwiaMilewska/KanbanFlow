@@ -2,6 +2,7 @@
 using KanbanFlow.API.Helpers.Enums;
 using KanbanFlow.API.Models.Domain;
 using KanbanFlow.API.Models.DTOs;
+using KanbanFlow.API.Models.DTOs.Comment;
 using KanbanFlow.API.Models.DTOs.Task;
 using Microsoft.AspNetCore.Identity;
 using Task = KanbanFlow.API.Models.Domain.Task;
@@ -33,7 +34,9 @@ namespace KanbanFlow.API.Helpers.Mappings
                 .ForMember(dest => dest.Priority, opt => opt.MapFrom(src => Enum.Parse<Priority>(src.Priority)))
                 .ForMember(dest => dest.Status, opt => opt.MapFrom(src => Enum.Parse<Status>(src.Status)));
 
-            CreateMap<CommentDto, Comment>().ReverseMap();
+            CreateMap<Comment, CommentDto>().ReverseMap();
+            CreateMap<Comment, CommentUpdateDto>().ReverseMap();
+            CreateMap<Comment, CommentAddDto>().ReverseMap();
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace KanbanFlow.API.Models.DTOs
+﻿namespace KanbanFlow.API.Models.DTOs.Comment
 {
     public class CommentDto
     {

@@ -47,6 +47,7 @@ builder.Services.AddDbContext<KanbanDbContext>();
 
 builder.Services.AddScoped<ITokenRepository, TokenRepository>();
 builder.Services.AddScoped<ITaskRepository, TaskRepository>();
+builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 
 builder.Services.AddIdentityCore<IdentityUser>()
                 .AddRoles<IdentityRole>()
