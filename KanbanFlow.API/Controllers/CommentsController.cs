@@ -21,7 +21,7 @@ namespace KanbanFlow.API.Controllers
         }
 
         [HttpPost("{taskId:Guid}")]
-        [Authorize(Roles = "Manager, Employee")]
+        [Authorize(Roles = "Manager, Developer")]
         public async Task<IActionResult> AddNewCommentToTask(Guid taskId, [FromBody] CommentAddDto newComment)
         {
             var commentDomain = _mapper.Map<Comment>(newComment);
@@ -31,7 +31,7 @@ namespace KanbanFlow.API.Controllers
         }
 
         [HttpDelete("{commentId:Guid}")]
-        [Authorize(Roles = "Manager, Employee")]
+        [Authorize(Roles = "Manager, Developer")]
         public async Task<IActionResult> DeleteComment(Guid commentId)
         {
             var commentDomain = await _commentRepository.DeleteCommentByIdAsync(commentId);
@@ -43,7 +43,7 @@ namespace KanbanFlow.API.Controllers
         }
 
         [HttpPut("{commentId:Guid}")]
-        [Authorize(Roles = "Manager, Employee")]
+        [Authorize(Roles = "Manager, Developer")]
         public async Task<IActionResult> UpdateComment(Guid commentId, [FromBody] CommentUpdateDto updatedComment)
         {
             var commentDomain = _mapper.Map<Comment>(updatedComment);
